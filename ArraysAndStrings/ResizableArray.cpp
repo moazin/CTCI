@@ -3,11 +3,11 @@
 
 class DynamicArray
 {
-    public:
     int *numbers;
     int size = 1;
     int pointer = 0;
     // constructor for this class. It's the method called whenever a new object is made of this class.
+    public:
     DynamicArray()
     {
         numbers = (int*) malloc(size*sizeof(int));
@@ -54,5 +54,10 @@ class DynamicArray
 int main(void)
 {
     DynamicArray mozi;
+    for (int i = 0; i < 10; i++)
+    {
+        mozi.append(i);
+    }
+    mozi.print();
     return 0;
 }
