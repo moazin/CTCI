@@ -18,6 +18,7 @@ class LinkedList
     void add(char* key, char* value);
     node getNode(int i);
     void print();
+    void remove(int i);
 };
 
 void printList(LinkedList* list);

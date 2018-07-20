@@ -78,10 +78,32 @@ void LinkedList::print()
     node* target = start_node;
     while(strcmp((*target).key, "end") != 0)
     {
+        cout << "***********************" << endl;
         cout << "Key: ";
         printString((*target).key);
         cout << "Value: ";
         printString((*target).value);
+        cout << "Next Node: ";
+        cout << (*target).next_node << endl; 
+        cout << "***********************" << endl;
         target = (*target).next_node;
     }
 }
+
+// void LinkedList::remove(int i)
+// {
+//     if (i < (size))
+//     {
+//         int counter = 0;
+//         node* target = start_node;
+//         void* prev_node = &start_node; 
+//         while(counter <= i)
+//         {
+            
+//         }
+//     }
+//     else 
+//     {
+//         // raise an error somehow
+//     }
+// }
