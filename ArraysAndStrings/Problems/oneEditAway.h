@@ -1,0 +1,1 @@
+int isOneEditAway(char* stringBase, char* stringNew);
