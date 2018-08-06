@@ -14,6 +14,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 void transformPoint(int r, int c, int size, int *x, int *y);
 void reverseTransformPoint(int X, int Y, int size, int *r, int *c);
@@ -21,43 +22,43 @@ void rotatePoint(int x, int y, int size, int *X, int *Y);
 void printMatrix(int **matrix, int size);
 int** createMatrix(int N);
 void freeMatrix(int **matrix, int size);
-void rotateMatrix(int **matrix, int **newMatrix, int size);
+void rotateMatrix(int **matrix, int size);
 
 int main(void)
 {
-    printf("Size: ");
     int size;
+    printf("Size: ");
     scanf("%d", &size);
-    int** matrix = createMatrix(size);
-    int** newMatrix = createMatrix(size);
-    for(int i = 0; i < size; i++)
-    {
-        for(int j = 0; j < size; j++)
-        {
-           int tmp;
-           printf("(%d, %d) <-- ", i+1, j+1); 
-           scanf("%d", &tmp);
-           matrix[i][j] = tmp;
-        }
-        printf("\n");
-    }
-    printf("------- Your Matrix ----------\n");
-    printMatrix(matrix, size);
-    printf("------- Rotated Matrix -------\n");
-    rotateMatrix(matrix, newMatrix, size);
-    printMatrix(newMatrix, size);
+    int **matrix = createMatrix(size);
+    clock_t start, end, between;
+    start = clock();
+    rotateMatrix(matrix, size);
+    end = clock();
+    between = (end - start)/CLOCKS_PER_SEC;
+    printf("Time taken by algorithm: %li\n", between);
+    freeMatrix(matrix, size);
     return 0;
 }
 
-void rotateMatrix(int **matrix, int **newMatrix, int size)
+void rotateMatrix(int **matrix, int size)
 {
-    for(int i = 0; i < size; i++)
+    int tmp, tmp2;
+    for(int i = 0; i < (size/2); i++)
     {
-        for(int j = 0; j < size; j++)
+        // in start we only go till the (size-2)th element
+        for(int j = i; j < (size-1-i); j++)
         {
-           int r, c;
+           int r, c, x, y;
            rotatePoint(i, j, size, &r, &c);
-           newMatrix[r][c] = matrix[i][j];
+           tmp = matrix[r][c];
+           matrix[r][c] = matrix[i][j];
+           rotatePoint(r, c, size, &x, &y);
+           tmp2 = matrix[x][y];
+           matrix[x][y] = tmp;
+           rotatePoint(x, y, size, &r, &c);
+           tmp = matrix[r][c];
+           matrix[r][c] = tmp2;
+           matrix[i][j] = tmp;
         }
     }
 }
