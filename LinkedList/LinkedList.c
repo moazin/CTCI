@@ -2,14 +2,15 @@
 
 void printList(struct Node *head)
 {
-    do {
-        printf("%d, ", head->data);
-        head = head->next;
+    while(1)
+    {
+        printf("%d -> ", head->data);
         if(head->next == NULL)
-        {
-            printf("%d\n", head->data);
-        }
-    } while(head->next != NULL);
+            break;
+        else
+            head = head->next;
+    }
+    printf("NULL\n");
 }
 
 struct Node* createListFromArray(int* array, int size)
